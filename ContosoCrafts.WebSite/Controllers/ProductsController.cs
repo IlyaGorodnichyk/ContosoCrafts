@@ -9,9 +9,9 @@ namespace ContosoCrafts.WebSite.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        public ProductsController(JsonFileProductService productService )
+        public ProductsController(JsonFileProductService productService)
         {
-        this.ProductService = productService;
+            this.ProductService = productService;
 
         }
         public JsonFileProductService ProductService { get; }
@@ -21,6 +21,15 @@ namespace ContosoCrafts.WebSite.Controllers
         {
             return ProductService.GetProducts();
         }
-
+        [Route("Rate")]
+        [HttpGet]
+        public ActionResult Get(
+            [FromQuery] string ProductId,
+            [FromQuery] int Rating)
+        {
+            ProductService.AddRating(ProductId, Rating);
+            return Ok();
+        }
+        //https://localhost:44310/products/rate?ProductId=jenlooper-cactus&rating=5
     }
 }
